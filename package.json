@@ -1,0 +1,25 @@
+{
+  "name": "mars-rover",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Supercount/Mars-Rover.git"
+  },
+  "author": "Sylvain Yvonneau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Supercount/Mars-Rover/issues"
+  },
+  "homepage": "https://github.com/Supercount/Mars-Rover#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.3"
+  }
+}
