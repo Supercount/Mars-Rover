@@ -14,21 +14,23 @@ export class Rover {
         return this.position.toString();
     }
 
-    move(action : Action[]) :void {
-        switch (action[0]) {
-            case Action.Forwards:
-                this.position.goForwards();
-                break;
-            case Action.Backwards:
+    move(actions : Action[]) : void {
+        actions.forEach((action) => {
+            switch (action) {
+                case Action.Forwards:
+                    this.position.goForwards();
+                    break;
+                    case Action.Backwards:
                 this.position.goBackwards();
                 break;
             case Action.Left:
                 this.position.goLeft();
                 break;
-            case Action.Right:
+                case Action.Right:
                 this.position.goRight();
                 break;
-        }
+            }
+        })
     }
 
 }

@@ -179,5 +179,23 @@ describe('Rover', () => {
         
         expect(actual).toEqual("absciss: 3, ordinate: 1, orientation: E");
     })
+
+    it('should do all actions when given severals', function () {
+        let rover = new Rover(1, 0, Orientation.North);
+
+        rover.move([Action.Forwards, Action.Forwards]);
+        const actual = rover.getPosition();
+
+        expect(actual).toEqual("absciss: 1, ordinate: 2, orientation: N");
+    })
+
+    it('should do all actions when given severals', function () {
+        let rover = new Rover(5, 3, Orientation.South);
+
+        rover.move([Action.Forwards, Action.Left, Action.Backwards]);
+        const actual = rover.getPosition();
+
+        expect(actual).toEqual("absciss: 4, ordinate: 2, orientation: E");
+    })
     
 });

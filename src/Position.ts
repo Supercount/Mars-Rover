@@ -5,17 +5,17 @@ export class Position {
     private ordinate : number;
     private orientation : Orientation;
 
-    constructor(absciss:number, ordinate:number, orientation: Orientation) {
+    constructor(absciss : number, ordinate : number, orientation : Orientation) {
         this.absciss = absciss;
         this.ordinate = ordinate;
         this.orientation = orientation;
     }
 
-    toString() :String {
+    toString() : String {
         return `absciss: ${this.absciss}, ordinate: ${this.ordinate}, orientation: ${this.orientation}`;
     }
 
-    goForwards() :void {
+    goForwards() : void {
         switch (this.orientation)
         {
             case Orientation.North: 
@@ -33,7 +33,7 @@ export class Position {
         }
     }
 
-    goBackwards() :void {
+    goBackwards() : void {
         switch (this.orientation)
         {
             case Orientation.North: 
@@ -51,7 +51,7 @@ export class Position {
         }
     }
 
-    goLeft() :void {
+    goLeft() : void {
         switch (this.orientation) {
             case Orientation.North:
                 this.orientation = Orientation.West;
@@ -68,7 +68,7 @@ export class Position {
         }
     }
 
-    goRight() :void {
+    goRight() : void {
         switch (this.orientation) {
             case Orientation.North:
                 this.orientation = Orientation.East;
