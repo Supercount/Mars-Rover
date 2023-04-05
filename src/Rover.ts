@@ -1,19 +1,20 @@
 import { Orientation } from "./Orientation";
+import { Position } from "./Position";
 
 export class Rover {
 
-    private orientation : Orientation;
-    private absciss : Number;
-    private ordinate : Number;
+    private position : Position;
 
-    constructor(absciss:Number, ordinate:Number, orientation = Orientation.North) {
-        this.absciss = absciss;
-        this.ordinate = ordinate;
-        this.orientation = orientation;
+    constructor(absciss:number, ordinate:number, orientation : Orientation) {
+        this.position = new Position(absciss, ordinate, orientation);
     }
 
-    getPosition() {
-        return {absciss: this.absciss, ordinate: this.ordinate, orientation : this.orientation};
+    getPosition() : String {
+        return this.position.toString();
+    }
+
+    move(action :String) :void {
+        this.position.goForwards();
     }
 
 }
