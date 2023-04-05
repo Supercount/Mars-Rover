@@ -1,3 +1,4 @@
+import { Action } from "./Action";
 import { Orientation } from "./Orientation";
 import { Position } from "./Position";
 
@@ -13,8 +14,21 @@ export class Rover {
         return this.position.toString();
     }
 
-    move(action :String) :void {
-        this.position.goForwards();
+    move(action : Action[]) :void {
+        switch (action[0]) {
+            case Action.Forwards:
+                this.position.goForwards();
+                break;
+            case Action.Backwards:
+                this.position.goBackwards();
+                break;
+            case Action.Left:
+                this.position.goLeft();
+                break;
+            case Action.Right:
+                this.position.goRight();
+                break;
+        }
     }
 
 }
