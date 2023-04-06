@@ -1,4 +1,5 @@
 import { Orientation } from "./Orientation";
+import { Planet } from "./Planet";
 
 export class Position {
     private absciss : number;
@@ -15,25 +16,37 @@ export class Position {
         return `absciss: ${this.absciss}, ordinate: ${this.ordinate}, orientation: ${this.orientation}`;
     }
 
-    goForwards() : void {
+    goForwards(planet : Planet) : void {
+        const maxOrdinate = planet.getMaxOrdinate();
+        const maxAbsciss = planet.getMaxAbsciss();
         switch (this.orientation)
         {
             case Orientation.North: 
-                this.ordinate++;
+                if (this.ordinate + 1 >= maxOrdinate) {
+                    this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+                    this.orientation = this.reverse();
+                } else {
+                    this.ordinate++;
+                }
                 break;
             case Orientation.East:
-                this.absciss++;
+                this.absciss = (++this.absciss % maxAbsciss);
                 break;
-            case Orientation.South:
-                this.ordinate--;
+            case Orientation.South: 
+                if (this.ordinate == 0) {
+                    this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+                    this.orientation = this.reverse();
+                } else {
+                    this.ordinate--;
+                }
                 break;
             case Orientation.West:
-                this.absciss--;
+                this.absciss = ((--this.absciss + maxAbsciss) % maxAbsciss);
                 break;
         }
     }
 
-    goBackwards() : void {
+    goBackwards(planet : Planet) : void {
         switch (this.orientation)
         {
             case Orientation.North: 
@@ -82,6 +95,19 @@ export class Position {
             case Orientation.West:
                 this.orientation = Orientation.North;
                 break;
+        }
+    }
+
+    reverse() : Orientation {
+        switch (this.orientation) {
+            case Orientation.North:
+                return Orientation.South;
+            case Orientation.East:
+                return Orientation.West;
+            case Orientation.South:
+                return Orientation.North;
+            case Orientation.West:
+                return Orientation.East;
         }
     }
 }
