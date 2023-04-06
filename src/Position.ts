@@ -47,19 +47,31 @@ export class Position {
     }
 
     goBackwards(planet : Planet) : void {
+        const maxOrdinate = planet.getMaxOrdinate();
+        const maxAbsciss = planet.getMaxAbsciss();
         switch (this.orientation)
         {
             case Orientation.North: 
+            if (this.ordinate == 0) {
+                this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+                this.orientation = this.reverse();
+            } else {
                 this.ordinate--;
+            }
                 break;
             case Orientation.East:
-                this.absciss--;
+                this.absciss = ((--this.absciss + maxAbsciss) % maxAbsciss);
                 break;
             case Orientation.South:
-                this.ordinate++;
+                if (this.ordinate + 1 >= maxOrdinate) {
+                    this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+                    this.orientation = this.reverse();
+                } else {
+                    this.ordinate++;
+                }
                 break;
             case Orientation.West:
-                this.absciss++;
+                this.absciss = (++this.absciss % maxAbsciss);
                 break;
         }
     }

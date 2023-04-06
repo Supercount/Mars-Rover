@@ -235,4 +235,40 @@ describe('Rover', () => {
 
         expect(actual).toEqual("absciss: 5, ordinate: 0, orientation: N");
     })
+    
+    it('should be positionned accordingly to the spherical map when going over limit on East side backwardly', function () {
+        let rover = new Rover(5, 3, Orientation.West, planet);
+
+        rover.move([Action.Backwards]);
+        const actual = rover.getPosition();
+
+        expect(actual).toEqual("absciss: 0, ordinate: 3, orientation: W");
+    })
+
+    it('should be positionned accordingly to the spherical map when going over limit on West side backwardly', function () {
+        let rover = new Rover(0, 3, Orientation.East, planet);
+
+        rover.move([Action.Backwards]);
+        const actual = rover.getPosition();
+
+        expect(actual).toEqual("absciss: 5, ordinate: 3, orientation: E");
+    })
+
+    it('should be positionned accordingly to the spherical map when going over limit on North side backwardly', function () {
+        let rover = new Rover(2, 5, Orientation.South, planet);
+
+        rover.move([Action.Backwards]);
+        const actual = rover.getPosition();
+
+        expect(actual).toEqual("absciss: 5, ordinate: 5, orientation: N");
+    })
+
+    it('should be positionned accordingly to the spherical map when going over limit on South side backwardly', function () {
+        let rover = new Rover(2, 0, Orientation.North, planet);
+
+        rover.move([Action.Backwards]);
+        const actual = rover.getPosition();
+
+        expect(actual).toEqual("absciss: 5, ordinate: 0, orientation: S");
+    })
 });
