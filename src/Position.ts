@@ -1,82 +1,79 @@
 import { Orientation } from "./Orientation";
 import { Planet } from "./Planet";
+import { Point } from "./Point";
 
 export class Position {
-    private absciss : number;
-    private ordinate : number;
+    private point : Point
     private orientation : Orientation;
+    private planet : Planet;
 
-    constructor(absciss : number, ordinate : number, orientation : Orientation) {
-        this.absciss = absciss;
-        this.ordinate = ordinate;
+    constructor(absciss : number, ordinate : number, orientation : Orientation, planet : Planet) {
+        this.point = new Point(absciss, ordinate);
         this.orientation = orientation;
+        this.planet = planet;
     }
 
     toString() : String {
-        return `absciss: ${this.absciss}, ordinate: ${this.ordinate}, orientation: ${this.orientation}`;
+        return `${this.point}, orientation: ${this.orientation}`;
     }
 
-    goForwards(planet : Planet) : void {
-        const maxOrdinate = planet.getMaxOrdinate();
-        const maxAbsciss = planet.getMaxAbsciss();
+    goForwards() : void {
+        const maxAbsciss = this.planet.getMaxAbsciss();
+        let newPoint : Point;
         switch (this.orientation)
         {
             case Orientation.North: 
-                if (this.ordinate + 1 >= maxOrdinate) {
-                    this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+                newPoint = this.point.moveNorth(this.planet);
+                if (newPoint.ordinate === this.point.ordinate) {
                     this.orientation = this.reverse();
-                } else {
-                    this.ordinate++;
                 }
+                this.point = newPoint;
                 break;
             case Orientation.East:
-                this.absciss = (++this.absciss % maxAbsciss);
+                this.point = this.point.moveEast(this.planet);
                 break;
             case Orientation.South: 
-                if (this.ordinate == 0) {
-                    this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
-                    this.orientation = this.reverse();
-                } else {
-                    this.ordinate--;
-                }
-                break;
+            newPoint = this.point.moveSouth(this.planet);
+            if (newPoint.ordinate === this.point.ordinate) {
+                this.orientation = this.reverse();
+            }
+            this.point = newPoint;
+            break;
             case Orientation.West:
-                this.absciss = ((--this.absciss + maxAbsciss) % maxAbsciss);
+                this.point = this.point.moveWest(this.planet);
                 break;
         }
     }
 
-    goBackwards(planet : Planet) : void {
-        const maxOrdinate = planet.getMaxOrdinate();
-        const maxAbsciss = planet.getMaxAbsciss();
+    goBackwards() : void {
+        const maxAbsciss = this.planet.getMaxAbsciss();
+        let newPoint : Point;
         switch (this.orientation)
         {
             case Orientation.North: 
-            if (this.ordinate == 0) {
-                this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+            newPoint = this.point.moveSouth(this.planet);
+            if (newPoint.ordinate === this.point.ordinate) {
                 this.orientation = this.reverse();
-            } else {
-                this.ordinate--;
             }
-                break;
+            this.point = newPoint;
+            break;
             case Orientation.East:
-                this.absciss = ((--this.absciss + maxAbsciss) % maxAbsciss);
+                this.point = this.point.moveWest(this.planet);
                 break;
             case Orientation.South:
-                if (this.ordinate + 1 >= maxOrdinate) {
-                    this.absciss = (this.absciss + maxAbsciss/2) % maxAbsciss;
+                newPoint = this.point.moveNorth(this.planet);
+                if (newPoint.ordinate === this.point.ordinate) {
                     this.orientation = this.reverse();
-                } else {
-                    this.ordinate++;
                 }
+                this.point = newPoint;
                 break;
             case Orientation.West:
-                this.absciss = (++this.absciss % maxAbsciss);
+                this.point = this.point.moveEast(this.planet);
                 break;
         }
     }
 
-    goLeft() : void {
+    turnLeft() : void {
         switch (this.orientation) {
             case Orientation.North:
                 this.orientation = Orientation.West;
@@ -93,7 +90,7 @@ export class Position {
         }
     }
 
-    goRight() : void {
+    turnRight() : void {
         switch (this.orientation) {
             case Orientation.North:
                 this.orientation = Orientation.East;
