@@ -9,6 +9,10 @@ export class Rover {
     private planet : Planet
 
     constructor(absciss:number, ordinate:number, orientation : Orientation, planet: Planet) {
+        if (absciss < 0 || ordinate < 0 || absciss >= planet.getMaxAbsciss() || ordinate >= planet.getMaxOrdinate()) {
+            throw new Error("The Rover must be at a valid position");
+            
+        } 
         this.position = new Position(absciss, ordinate, orientation);
         this.planet = planet;
     }
