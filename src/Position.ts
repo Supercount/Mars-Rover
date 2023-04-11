@@ -18,7 +18,6 @@ export class Position {
     }
 
     goForwards() : void {
-        const maxAbsciss = this.planet.getMaxAbsciss();
         let newPoint : Point;
         switch (this.orientation)
         {
@@ -46,7 +45,6 @@ export class Position {
     }
 
     goBackwards() : void {
-        const maxAbsciss = this.planet.getMaxAbsciss();
         let newPoint : Point;
         switch (this.orientation)
         {

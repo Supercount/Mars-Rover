@@ -20,30 +20,52 @@ export class Point {
     public moveNorth(planet : Planet) : Point {
         const maxOrdinate = planet.getMaxOrdinate();
         const maxAbsciss = planet.getMaxAbsciss();
+        let newPoint : Point;
         if (this.ordinate + 1 >= maxOrdinate) {
-            return new Point((this.absciss + maxAbsciss/2) % maxAbsciss, this.ordinate);
+            newPoint = new Point((this.absciss + maxAbsciss/2) % maxAbsciss, this.ordinate);
         } else {
-            return new Point(this.absciss, this.ordinate + 1);
+            newPoint = new Point(this.absciss, this.ordinate + 1);
+        }
+        if (planet.isObstacle(newPoint)) {
+            throw new Error("Obstacle encountered");
+        } else {
+            return newPoint;
         }
     }
 
     public moveSouth(planet : Planet) : Point {
         const maxAbsciss = planet.getMaxAbsciss();
+        let newPoint : Point;
         if (this.ordinate == 0) {
-            return new Point((this.absciss + maxAbsciss/2) % maxAbsciss, this.ordinate);
+            newPoint = new Point((this.absciss + maxAbsciss/2) % maxAbsciss, this.ordinate);
         } else {
-            return new Point(this.absciss, this.ordinate - 1);
+            newPoint = new Point(this.absciss, this.ordinate - 1);
+        }
+        if (planet.isObstacle(newPoint)) {
+            throw new Error("Obstacle encountered");
+        } else {
+            return newPoint;
         }
     }
 
     public moveEast(planet : Planet) : Point {
         const newAbsciss = ((this.absciss +1) % planet.getMaxAbsciss());
-        return new Point(newAbsciss, this.ordinate);
+        const newPoint = new Point(newAbsciss, this.ordinate);
+        if (planet.isObstacle(newPoint)) {
+            throw new Error("Obstacle encountered");
+        } else {
+            return newPoint;
+        }
     }
 
     public moveWest(planet : Planet) : Point {
         const maxAbsciss = planet.getMaxAbsciss();
         const newAbsciss =  ((this.absciss -1 + maxAbsciss) % maxAbsciss);
-        return new Point(newAbsciss, this.ordinate);
+        const newPoint = new Point(newAbsciss, this.ordinate);
+        if (planet.isObstacle(newPoint)) {
+            throw new Error("Obstacle encountered");
+        } else {
+            return newPoint;
+        }
     }
 }
