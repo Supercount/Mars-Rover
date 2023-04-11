@@ -1,7 +1,6 @@
 import { Action } from "./Action";
 import { Orientation } from "./Orientation";
 import { Planet } from "./Planet";
-import { Point } from "./Point";
 import { Position } from "./Position";
 
 export class Rover {
