@@ -280,7 +280,7 @@ describe('Rover', () => {
             rover.move([Action.Forwards]);
         };
 
-        expect(movement).toThrow("Obstacle encountered when leaving position 0 : 0");
+        expect(movement).toThrow("Obstacle encountered when leaving position absciss: 0, ordinate: 0");
     });
 
     it("should do all the movements before reporting an obstacle is there is one on the track", () => {
@@ -290,7 +290,7 @@ describe('Rover', () => {
             rover.move([Action.Forwards, Action.Right, Action.Forwards, Action.Left, Action.Backwards]);
         };
 
-        expect(movement).toThrow("Obstacle encountered when leaving position 1 : 1");
+        expect(movement).toThrow("Obstacle encountered when leaving position absciss: 1, ordinate: 1");
     });
 
 });

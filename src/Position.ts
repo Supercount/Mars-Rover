@@ -26,21 +26,24 @@ export class Position {
                 if (newPoint.ordinate === this.point.ordinate) {
                     this.orientation = this.reverse();
                 }
-                this.point = newPoint;
                 break;
             case Orientation.East:
-                this.point = this.point.moveEast(this.planet);
+                newPoint = this.point.moveEast(this.planet);
                 break;
             case Orientation.South: 
             newPoint = this.point.moveSouth(this.planet);
             if (newPoint.ordinate === this.point.ordinate) {
                 this.orientation = this.reverse();
             }
-            this.point = newPoint;
             break;
             case Orientation.West:
-                this.point = this.point.moveWest(this.planet);
+                newPoint = this.point.moveWest(this.planet);
                 break;
+        }
+        if (this.planet.isObstacle(newPoint)) {
+            throw new Error(`Obstacle encountered when leaving position ${this.point}`);
+        } else {
+            this.point = newPoint;
         }
     }
 
@@ -53,21 +56,24 @@ export class Position {
             if (newPoint.ordinate === this.point.ordinate) {
                 this.orientation = this.reverse();
             }
-            this.point = newPoint;
             break;
             case Orientation.East:
-                this.point = this.point.moveWest(this.planet);
+                newPoint = this.point.moveWest(this.planet);
                 break;
             case Orientation.South:
                 newPoint = this.point.moveNorth(this.planet);
                 if (newPoint.ordinate === this.point.ordinate) {
                     this.orientation = this.reverse();
                 }
-                this.point = newPoint;
                 break;
             case Orientation.West:
-                this.point = this.point.moveEast(this.planet);
+                newPoint = this.point.moveEast(this.planet);
                 break;
+        }
+        if (this.planet.isObstacle(newPoint)) {
+            throw new Error(`Obstacle encountered when leaving position ${this.point}`);
+        } else {
+            this.point = newPoint;
         }
     }
 
