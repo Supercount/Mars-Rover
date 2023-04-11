@@ -27,7 +27,7 @@ export class Point {
             newPoint = new Point(this.absciss, this.ordinate + 1);
         }
         if (planet.isObstacle(newPoint)) {
-            throw new Error("Obstacle encountered");
+            throw new Error(`Obstacle encountered when leaving position ${this.absciss} : ${this.ordinate}`);
         } else {
             return newPoint;
         }
@@ -42,7 +42,7 @@ export class Point {
             newPoint = new Point(this.absciss, this.ordinate - 1);
         }
         if (planet.isObstacle(newPoint)) {
-            throw new Error("Obstacle encountered");
+            throw new Error(`Obstacle encountered when leaving position ${this.absciss} : ${this.ordinate}`);
         } else {
             return newPoint;
         }
@@ -52,7 +52,7 @@ export class Point {
         const newAbsciss = ((this.absciss +1) % planet.getMaxAbsciss());
         const newPoint = new Point(newAbsciss, this.ordinate);
         if (planet.isObstacle(newPoint)) {
-            throw new Error("Obstacle encountered");
+            throw new Error(`Obstacle encountered when leaving position ${this.absciss} : ${this.ordinate}`);
         } else {
             return newPoint;
         }
@@ -63,7 +63,7 @@ export class Point {
         const newAbsciss =  ((this.absciss -1 + maxAbsciss) % maxAbsciss);
         const newPoint = new Point(newAbsciss, this.ordinate);
         if (planet.isObstacle(newPoint)) {
-            throw new Error("Obstacle encountered");
+            throw new Error(`Obstacle encountered when leaving position ${this.absciss} : ${this.ordinate}`);
         } else {
             return newPoint;
         }

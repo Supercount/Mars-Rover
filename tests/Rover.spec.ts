@@ -277,9 +277,20 @@ describe('Rover', () => {
         const rover = new Rover(0, 0, Orientation.East, planet);
 
         const movement = () => {
-          rover.move([Action.Forwards]);
+            rover.move([Action.Forwards]);
         };
-        expect(movement).toThrow(Error);
-        expect(movement).toThrow("Obstacle encountered");
-      });
+
+        expect(movement).toThrow("Obstacle encountered when leaving position 0 : 0");
+    });
+
+    it("should do all the movements before reporting an obstacle is there is one on the track", () => {
+        const rover = new Rover(0, 0, Orientation.North, planet);
+
+        const movement = () => {
+            rover.move([Action.Forwards, Action.Right, Action.Forwards, Action.Left, Action.Backwards]);
+        };
+
+        expect(movement).toThrow("Obstacle encountered when leaving position 1 : 1");
+    });
+
 });
